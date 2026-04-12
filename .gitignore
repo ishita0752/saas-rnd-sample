@@ -1,3 +1,5 @@
+local-cdn/
+src/staticfiles/vendors
 .DS_Store
 venv/
 # Byte-compiled / optimized / DLL files
