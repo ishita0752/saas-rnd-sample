@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/6.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
-
+from decouple import config
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,10 +20,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-jfprt&k4**hzbre@)fycthw!1$_2k9lhkg!izhieivk$55s^ph'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = str(os.environ.get("DJANGO_DEBUG")).lower()=="true"
+DEBUG=config("DJANGO_DEBUG",cast=bool)
+SECRET_KEY = config("DJANGO_SECRET_KEY")
+# a good enviornment variable here is a boolean value
+# Basically if the enviornment variable is not set it is set to false
 
 ALLOWED_HOSTS = [
     ".railway.app"
@@ -85,7 +89,17 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
+CONN_MAX_AGE=config("CONN_MAX_AGE",cast=int,default=30)
+DATABASE_URL=config("DATABASE_URL",cast=str)
+if DATABASE_URL is not None:
+    import dj_database_url
+    DATABASES={
+        "default":dj_database_url.config(
+            default=DATABASE_URL,
+            conn_health_checks=True,
+            conn_max_age=CONN_MAX_AGE,
+        )
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
