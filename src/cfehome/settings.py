@@ -59,6 +59,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Add this line
+    'django.contrib.sessions.middleware.SessionMiddleware',
 ]
 
 ROOT_URLCONF = 'cfehome.urls'
@@ -141,6 +144,11 @@ STATICFILES_BASE_DIR=BASE_DIR/ "staticfiles"
 STATICFILES_BASE_DIR.mkdir(exist_ok=True,parents=True)
 STATICFILES_VENDOR_DIR=STATICFILES_BASE_DIR/ "vendors"
 
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 STATICFILES_DIRS=[
     STATICFILES_BASE_DIR
