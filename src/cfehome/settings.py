@@ -14,9 +14,26 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+#Email Config
+EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = config("EMAIL_HOST",cast=str, default='smtp.gmail.com')
+EMAIL_HOST_USER = config("EMAIL_HOST_USER",cast=str, default=None)
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD",cast=str, default=None)
+EMAIL_PORT = config("EMAIL_PORT", default='587', cast=str)
+EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=True, cast=bool)
+EMAIL_USE_SSL = config("EMAIL_USE_TLS", default=False, cast=bool)
 
 # Quick-start development settings - unsuitable for production
+ADMIN_USER_NAME=config("ADMIN_USER_NAME",default="Admin user")
+ADMIN_USER_EMAIL=config("ADMIN_USER_EMAIL",default="NONE")
+MANAGERS=[]
+ADMINS=[]
+if all([ADMIN_USER_EMAIL,ADMIN_USER_NAME]):
+    ADMINS+=[
+        (f'{ADMIN_USER_NAME}', f'{ADMIN_USER_EMAIL}')
+    ]
+ADMINS=[('Justin','amen70777@gmail.com')]
+MANAGERS=ADMINS
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!

@@ -21,6 +21,7 @@ from .views import about_view
 print("✅ cfehome.urls is being used")
 urlpatterns = [
     path("",home_view),
+    path("login/",auth_views.login_view),
     path("hello-world/",home_view),
     path("about/",about_view),
     path('admin/', admin.site.urls),
