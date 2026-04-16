@@ -66,6 +66,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'visits',
     'commando',
+     "allauth_ui",
+     "widget_tweaks",
+     "slippers",
+     
+    
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
 
 MIDDLEWARE = [
@@ -77,9 +85,13 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+      "allauth.account.middleware.AccountMiddleware",
     'whitenoise.middleware.WhiteNoiseMiddleware',  # Add this line
     'django.contrib.sessions.middleware.SessionMiddleware',
 ]
+SOCIALACCOUNT_PROVIDERS = {
+   
+}
 
 ROOT_URLCONF = 'cfehome.urls'
 
@@ -87,12 +99,16 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [BASE_DIR/"templates"],
-        'APP_DIRS': True,
+        'APP_DIRS': False,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+            ],
+            'loaders': [ 
+                'django.template.loaders.filesystem.Loader',   # checks DIRS first
+                'django.template.loaders.app_directories.Loader',  # then apps
             ],
         },
     },
@@ -140,7 +156,22 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+#allauth
+AUTHENTICATION_BACKENDS = [
+    
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
 
+    # `allauth` specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend',
+    
+]
+LOGIN_REDIRECT_URL="/"
+ACCOUNT_AUTHENTICATION_METHOD="username_email"
+ACCOUNT_EMAIL_REQUIRED=True
+ACCOUNT_EMAIL_VERIFICATION="mandatory"
+ACCOUNT_EMAIL_SUBJECT_PREFIX="[CFE]"
+ACCOUNT_LOGOUT_ON_GET = False
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 

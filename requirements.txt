@@ -6,4 +6,8 @@ psycopg[binary]
 dj-database-url
 requests
 whitenoise
+django-allauth
+django-allauth-ui
+django-widget-tweaks
+slippers
 #for parsing our databse url string
