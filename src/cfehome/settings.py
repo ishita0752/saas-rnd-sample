@@ -69,11 +69,13 @@ INSTALLED_APPS = [
      "allauth_ui",
      "widget_tweaks",
      "slippers",
-     
+     "profiles",
     
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
+
 ]
 
 MIDDLEWARE = [
@@ -90,6 +92,9 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
 ]
 SOCIALACCOUNT_PROVIDERS = {
+    "github":{
+        "VERIFIED_EMAIL":True
+    }
    
 }
 
@@ -169,7 +174,7 @@ AUTHENTICATION_BACKENDS = [
 LOGIN_REDIRECT_URL="/"
 ACCOUNT_AUTHENTICATION_METHOD="username_email"
 ACCOUNT_EMAIL_REQUIRED=True
-ACCOUNT_EMAIL_VERIFICATION="mandatory"
+ACCOUNT_EMAIL_VERIFICATION="optional"
 ACCOUNT_EMAIL_SUBJECT_PREFIX="[CFE]"
 ACCOUNT_LOGOUT_ON_GET = False
 # Internationalization

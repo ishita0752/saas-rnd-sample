@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load static %}
 {% load allauth_ui %}
+
 <!DOCTYPE html>
 <html data-theme="{% allauth_ui_theme %}">
     <head>
@@ -11,11 +12,12 @@
             {% block head_title %}
             {% endblock head_title %}
         </title>
-        
+             
         {% block extra_head %}
-
-            {%include 'base/css.html'%}
-            <link rel="stylesheet" href="{% static 'allauth_ui/output.css' %}">
+            <link rel="stylesheet" href="{% static 'allauth_ui/output.css' %}"> 
+            {%include 'base/css.html'%} 
+        
+           
             
         {% endblock extra_head %}
         
@@ -23,6 +25,7 @@
     <body class="min-h-screen bg-base-300">
         {%include 'navbar/nav.html'%}
         {% block body %}
+        <div class="flex items-center justify-center min-h-[calc(100vh-4rem)] pt-16"></div>
             {% if messages %}
                 {% for message in messages %}
                     <div role="alert"
@@ -33,7 +36,7 @@
             {% endif %}
             {% block content %}
             {% endblock content %}
-            <div class="mx-auto [&_a]:link text-sm flex flex-col md:flex-row items-center justify-center gap-3 mt-3">
+            <div class="mx-auto [&_a]:link text-sm flex flex-col md:flex-row items-center justify-center gap-3 mt-3 ">
                 {% if user.is_authenticated %}
                     {% url 'account_email' as email_url %}
                     {% if email_url %}
